@@ -3,7 +3,7 @@ import { MdSearch } from "react-icons/md";
 import { SearchOuter } from "./SearchStyles";
 
 import { ContextState } from "../../context/ContextState";
-import { getRepositoryInformation } from "../../utils/utils";
+import { getRepositoryInformation, proccessCommitDataFromApi } from "../../utils/utils";
 
 const Search = () => {
     const [repositoryInformation, setRepositoryInformation] = useContext(ContextState);
@@ -13,6 +13,8 @@ const Search = () => {
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
+
+        // we set the state to be empty, so that the loading animation shows until the data has arrived
         setRepositoryInformation({});
 
         getRepositoryInformation(searchTermFromInput)
@@ -22,6 +24,8 @@ const Search = () => {
             .catch((err) => {
                 //TODO Handle error better here with frontend feedback
                 console.log(err);
+
+                // If there is an error, put the backup data into the original object
                 setRepositoryInformation(backup);
             });
     };
