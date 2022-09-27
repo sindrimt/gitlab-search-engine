@@ -11,7 +11,7 @@ export const StateProvider = (props) => {
     const [repositoryInformation, setRepositoryInformation] = useState({});
 
     useEffect(() => {
-        getRepositoryInformation(17480).then((data) => {
+        getRepositoryInformation(JSON.parse(localStorage.getItem("key" || "{}"))).then((data) => {
             setRepositoryInformation(data);
             console.log(data);
         });

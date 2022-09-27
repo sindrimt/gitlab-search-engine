@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect} from "react";
 import { MdSearch } from "react-icons/md";
 import { SearchOuter } from "./SearchStyles";
 
@@ -8,7 +8,7 @@ import { getRepositoryInformation } from "../../utils/utils";
 const Search = () => {
     const [repositoryInformation, setRepositoryInformation] = useContext(ContextState);
 
-    const [searchTermFromInput, setSearchTermFromInput] = useState(17480);
+    const [searchTermFromInput, setSearchTermFromInput] = useState(JSON.parse(localStorage.getItem("key") || "{}"));
     const [backup, setBackup] = useState(repositoryInformation);
 
     const handleSubmit = (e: any) => {
@@ -18,6 +18,7 @@ const Search = () => {
         getRepositoryInformation(searchTermFromInput)
             .then((data) => {
                 setRepositoryInformation(data);
+                localStorage.setItem("key", JSON.stringify(searchTermFromInput));
             })
             .catch((err) => {
                 //TODO Handle error better here with frontend feedback
@@ -25,6 +26,8 @@ const Search = () => {
                 setRepositoryInformation(backup);
             });
     };
+    
+    
 
     return (
         <section className="section">
