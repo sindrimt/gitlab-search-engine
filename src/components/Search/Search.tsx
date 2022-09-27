@@ -7,10 +7,13 @@ import { getRepositoryInformation } from "../../utils/utils";
 
 const Search = () => {
     const [repositoryInformation, setRepositoryInformation] = useContext(ContextState);
+
     const [searchTermFromInput, setSearchTermFromInput] = useState(17480);
+    const [backup, setBackup] = useState(repositoryInformation);
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
+        setRepositoryInformation({});
 
         getRepositoryInformation(searchTermFromInput)
             .then((data) => {
@@ -19,6 +22,7 @@ const Search = () => {
             .catch((err) => {
                 //TODO Handle error better here with frontend feedback
                 console.log(err);
+                setRepositoryInformation(backup);
             });
     };
 
@@ -30,13 +34,13 @@ const Search = () => {
                         <MdSearch />
                         <input
                             type="text"
-                            placeholder="Enter Gitlab Repository"
+                            placeholder="Enter Gitlab Repository ID"
                             onChange={(e: any) => setSearchTermFromInput(e.target.value ? e.target.value : 17480)}
                         />
                         <button type="submit">search</button>
                     </div>
                 </form>
-                <h3>{repositoryInformation?.other?.name}</h3>
+                <h3>{repositoryInformation?.other?.name_with_namespace}</h3>
             </SearchOuter>
         </section>
     );
