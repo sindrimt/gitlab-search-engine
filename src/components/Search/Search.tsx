@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect} from "react";
 import { MdSearch } from "react-icons/md";
 import { SearchOuter } from "./SearchStyles";
 
@@ -20,6 +20,7 @@ const Search = () => {
         getRepositoryInformation(searchTermFromInput)
             .then((data) => {
                 setRepositoryInformation(data);
+                localStorage.setItem("key", JSON.stringify(searchTermFromInput));
             })
             .catch((err) => {
                 //TODO Handle error better here with frontend feedback
@@ -29,6 +30,8 @@ const Search = () => {
                 setRepositoryInformation(backup);
             });
     };
+    
+    
 
     return (
         <section className="section">
