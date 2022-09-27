@@ -1,20 +1,31 @@
 import React, { useState, createContext, useEffect } from "react";
-import { getRepositoryInformation } from "../utils/utils";
+import { getRepositoryInformation, proccessCommitDataFromApi } from "../utils/utils";
 
 export const ContextState = createContext();
 
 export const StateProvider = (props) => {
-    /* const [commits, setCommits] = useState(3);
-    const [stars, setStars] = useState(3);
-    const [repositoryName, setRepositoryName] = useState("Test"); */
-
     const [repositoryInformation, setRepositoryInformation] = useState({});
 
     useEffect(() => {
-        getRepositoryInformation(JSON.parse(localStorage.getItem("key" || "{}"))).then((data) => {
-            setRepositoryInformation(data);
-            console.log(data);
-        });
+        let dataObject = {};
+
+        // We start off by getting a bunch of data from the gitlab repository
+        getRepositoryInformation(17480)
+            .then((data) => {
+                dataObject = data;
+            })
+
+            // Then count how many commits each member has
+            .then(() => {
+                proccessCommitDataFromApi(dataObject)
+                    .then((result) => {
+                        dataObject["members"] = result;
+                        setRepositoryInformation(dataObject);
+                    })
+                    .then(() => {
+                        console.log(repositoryInformation);
+                    });
+            });
     }, []);
 
     return (
