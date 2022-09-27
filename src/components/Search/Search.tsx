@@ -8,7 +8,7 @@ import { getRepositoryInformation } from "../../utils/utils";
 const Search = () => {
     const [repositoryInformation, setRepositoryInformation] = useContext(ContextState);
 
-    const [searchTermFromInput, setSearchTermFromInput] = useState(JSON.parse(localStorage.getItem("key") || "{}"));
+    const [searchTermFromInput, setSearchTermFromInput] = useState(17480);
     const [backup, setBackup] = useState(repositoryInformation);
 
     const handleSubmit = (e: any) => {
