@@ -1,4 +1,4 @@
-/* interface SearchI {
+/* interface SearchI  {
     searchTerm?: string | number;
 } */
 
@@ -23,6 +23,39 @@ export const getRepositoryInformation = (searchTerm: number) => {
             })
             .catch(() => {
                 reject("Error with api call");
+            });
+    });
+};
+
+export const proccessCommitDataFromApi = (data: any) => {
+    const members: any = [];
+
+    return new Promise((resolve, reject) => {
+        // Get information from the Gitlab api for how many members there are in the project
+        fetch("https://gitlab.stud.idi.ntnu.no/api/v4/projects/17480/members/all?access_token=glpat-FF2rY-Gy-Pjzwqsh4467")
+            .then((response) => response.json())
+            // Then add them to an array and store them as an object with name and commitCount
+            .then((data) =>
+                data?.map((item: any) => {
+                    members.push({ name: item.name, commitCount: 0 });
+                })
+            )
+            // We loop through each member in the group, and for each commit - check if the name is in the commit
+            //if it is, increment the commitCount
+            .then(() => {
+                members.map((member: any) => {
+                    data?.commits?.map((commit: any) => {
+                        if (commit.author_name === member.name) {
+                            member.commitCount++;
+                        }
+                    });
+                });
+
+                // At last, resolve the members array with updated commitCount :)
+                resolve(members);
+            })
+            .catch((err) => {
+                reject(err);
             });
     });
 };
