@@ -1,16 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { MdSearch } from "react-icons/md";
 import { SearchOuter } from "./SearchStyles";
 
+import { ContextState } from "../../context/ContextState";
+import { getRepositoryInformation } from "../../utils/utils";
+
 const Search = () => {
-    const [user, setUser] = React.useState("");
-    /* const [commits, setCommits] = useState(); */
+    const [repositoryInformation, setRepositoryInformation] = useContext(ContextState);
+    const [searchTermFromInput, setSearchTermFromInput] = useState(17480);
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
-        /*  fetch("https://gitlab.stud.idi.ntnu.no/api/v4/projects/17480/repository/commits?access_token=glpat-FF2rY-Gy-Pjzwqsh4467")
-            .then((response) => response.json())
-            .then((data) => console.log(data)); */
+
+        getRepositoryInformation(searchTermFromInput)
+            .then((data) => {
+                setRepositoryInformation(data);
+            })
+            .catch((err) => {
+                //TODO Handle error better here with frontend feedback
+                console.log(err);
+            });
     };
 
     return (
@@ -19,11 +28,15 @@ const Search = () => {
                 <form onSubmit={handleSubmit}>
                     <div className="form-control">
                         <MdSearch />
-                        <input type="text" placeholder="Enter Gitlab Repository" value={user} onChange={(e) => setUser(e.target.value)} />
+                        <input
+                            type="text"
+                            placeholder="Enter Gitlab Repository"
+                            onChange={(e: any) => setSearchTermFromInput(e.target.value ? e.target.value : 17480)}
+                        />
                         <button type="submit">search</button>
                     </div>
                 </form>
-                <h3>example blabla</h3>
+                <h3>{repositoryInformation?.other?.name}</h3>
             </SearchOuter>
         </section>
     );
