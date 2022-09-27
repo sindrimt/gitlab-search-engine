@@ -1,22 +1,21 @@
 import React from "react";
 import "./App.css";
 
-import Commits from "./components/Commits";
-
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import Navbar from "./components/Navbar/Navbar";
-import Homepage from "./pages/Homepage/Homepage";
+import Search from "./components/Search/Search";
+import Stats from "./components/Stats/Stats";
+import Info from "./components/Info/Info";
+import Footer from "./components/Footer/Footer";
 
 const App = () => {
     return (
-        <BrowserRouter>
-            <Navbar/>
-            <Routes>
-                <Route path="/" element={<Homepage />} />
-                <Route path="/commits" element={<Commits />} />
-            </Routes>
-        </BrowserRouter>
+        <>
+            <Navbar />
+            <Search />
+            <Info />
+            <Stats />
+            <Footer />
+        </>
     );
 };
 
