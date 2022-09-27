@@ -1,18 +1,16 @@
-import styled from "styled-components"; 
+import styled from "styled-components";
 
-export const NavbarContainer = styled.div`
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    height: 110px;
-    width: 100%;
-    background-color: #fafafa;
-`
-
-export const HeaderContainer = styled.div`
+export const NavbarOuter = styled.nav`
+    padding: 2rem;
+    margin-bottom: 4rem;
+    background: white;
     text-align: center;
-    padding-top: 40px;
-`
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-export const Header = styled.div`
-    font-size: 30px;    
-    color: rgb(30, 30, 30);
-`
+    h4 {
+        margin-bottom: 0;
+        font-weight: 400;
+    }
+`;
