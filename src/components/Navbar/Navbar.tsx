@@ -1,17 +1,14 @@
-import React from 'react'
+import React from "react";
+import { NavbarOuter } from "./NavbarStyles";
 
-import { NavbarContainer, HeaderContainer, Header} from "../Navbar/NavbarStyles";
+const Navbar = () => {
+    return (
+        <NavbarOuter>
+            <h4>
+                Welcome to <strong>GITLAB SEARCH ENGINE</strong>
+            </h4>
+        </NavbarOuter>
+    );
+};
 
-type Props = {}
-
-function Navbar({}: Props) {
-  return (
-    <NavbarContainer>
-        <HeaderContainer>
-            <Header>Our repository</Header>
-        </HeaderContainer>
-    </NavbarContainer>
-  )
-}
-
-export default Navbar
+export default Navbar;
