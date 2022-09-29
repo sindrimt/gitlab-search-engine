@@ -47,7 +47,7 @@ const Search = () => {
                         <button type="submit">search</button>
                     </div>
                 </form>
-                <h3>{repositoryInformation?.other?.name_with_namespace}</h3>
+                <h3 id="repoInfo">{repositoryInformation?.other?.name_with_namespace}</h3>
             </SearchOuter>
         </section>
     );

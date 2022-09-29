@@ -80,6 +80,11 @@ p {
     margin-bottom: 1.25rem;
     color: hsl(210, 22%, 49%);
 }
+
+#repoInfo {
+    margin: auto;
+}
+
 @media screen and (min-width: 800px) {
     h1 {
         font-size: 4rem;
@@ -102,6 +107,8 @@ p {
     h4 {
         line-height: 1;
     }
+
+    
 }
 
 .section {
