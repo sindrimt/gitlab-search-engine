@@ -40,11 +40,12 @@ const Search = () => {
                     <div className="form-control">
                         <MdSearch />
                         <input
+                            id="input"
                             type="text"
                             placeholder="Enter Gitlab Repository ID"
                             onChange={(e: any) => setSearchTermFromInput(e.target.value ? e.target.value : 17480)}
                         />
-                        <button type="submit">search</button>
+                        <button id="button" type="submit">search</button>
                     </div>
                 </form>
                 <h3 id="repoInfo">{repositoryInformation?.other?.name_with_namespace}</h3>
