@@ -1,6 +1,6 @@
-import React, { useState, useContext, useEffect} from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { MdSearch } from "react-icons/md";
-import { SearchOuter } from "./SearchStyles";
+import { SearchOuter, Test } from "./SearchStyles";
 
 import { ContextState } from "../../context/ContextState";
 import { getRepositoryInformation, proccessCommitDataFromApi } from "../../utils/utils";
@@ -10,6 +10,7 @@ const Search = () => {
 
     const [searchTermFromInput, setSearchTermFromInput] = useState(17480);
     const [backup, setBackup] = useState(repositoryInformation);
+    const [showPrevSearches, setShowPrevSearches] = useState(false);
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
@@ -30,8 +31,6 @@ const Search = () => {
                 setRepositoryInformation(backup);
             });
     };
-    
-    
 
     return (
         <section className="section">
@@ -43,7 +42,19 @@ const Search = () => {
                             type="text"
                             placeholder="Enter Gitlab Repository ID"
                             onChange={(e: any) => setSearchTermFromInput(e.target.value ? e.target.value : 17480)}
+                            className="searchBox"
+                            onFocus={() => setShowPrevSearches(true)}
+                            onBlur={() => setShowPrevSearches(false)}
                         />
+                        {showPrevSearches && (
+                            <Test>
+                                <div>hei på deg</div>
+                                <div>tdt42069 project</div>
+                                <div>sdfsdf</div>
+                                <div>sdfsdf</div>
+                            </Test>
+                        )}
+
                         <button type="submit">search</button>
                     </div>
                 </form>
