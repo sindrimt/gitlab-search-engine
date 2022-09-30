@@ -22,6 +22,7 @@ const Search = () => {
                 setRepositoryInformation(data);
                 localStorage.setItem("key", JSON.stringify(searchTermFromInput));
             })
+            
             .catch((err) => {
                 //TODO Handle error better here with frontend feedback
                 console.log(err);

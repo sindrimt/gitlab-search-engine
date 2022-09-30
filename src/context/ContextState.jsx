@@ -10,7 +10,7 @@ export const StateProvider = (props) => {
         let dataObject = {};
 
         // We start off by getting a bunch of data from the gitlab repository
-        getRepositoryInformation(17480)
+        getRepositoryInformation(JSON.parse(localStorage.getItem("key" || "{}")))
             .then((data) => {
                 dataObject = data;
             })
