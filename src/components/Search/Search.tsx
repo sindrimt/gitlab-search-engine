@@ -20,6 +20,7 @@ const Search = () => {
         getRepositoryInformation(searchTermFromInput)
             .then((data) => {
                 setRepositoryInformation(data);
+                sessionStorage.setItem("shortKey", JSON.stringify(searchTermFromInput));
                 localStorage.setItem("key", JSON.stringify(searchTermFromInput));
             })
             
