@@ -29,7 +29,7 @@ export const SearchOuter = styled.div`
     position: relative;
     display: grid;
     justify-content: center;
-    width: 60%;
+    width: 40%;
     gap: 1rem 1.75rem;
 
     @media (min-width: 768px) {
@@ -50,6 +50,7 @@ export const SearchOuter = styled.div`
         row-gap: 0.5rem;
         grid-template-columns: 1fr;
         padding: 0.5rem;
+        width: 100%;
         border-radius: 5px;
 
         input {
@@ -58,6 +59,7 @@ export const SearchOuter = styled.div`
             letter-spacing: var(--spacing);
             color: var(--color-grey3);
             padding: 0.25rem 0.5rem;
+            text-align: center;
 
             &:focus {
                 border: none;
