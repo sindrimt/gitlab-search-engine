@@ -9,7 +9,7 @@ export const StatsOuter = styled.div`
     }
 
     @media (min-width: 1200px) {
-        grid-template-columns: 4fr 2fr;
+        grid-template-columns: 2fr 2fr;
     }
 
     div {
