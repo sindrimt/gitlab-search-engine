@@ -27,7 +27,7 @@ const Search = () => {
 
     const inputRef = useRef(null);
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         let newData: any = {};
 
