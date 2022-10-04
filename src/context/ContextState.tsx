@@ -1,16 +1,26 @@
 import React, { useState, createContext, useEffect } from "react";
 import { getRepositoryInformation, proccessCommitDataFromApi } from "../utils/utils";
 
-export const ContextState = createContext();
+interface AppContextInterface {
+    name?: string;
+    author?: string;
+    url?: string;
+}
 
-export const StateProvider = (props) => {
+export const ContextState = createContext<AppContextInterface | null | any>(null);
+
+export const StateProvider = (props: any) => {
     const [repositoryInformation, setRepositoryInformation] = useState({});
 
+    const [globalSearchTerm, setGlobalSearchTerm] = useState(17480);
+
+    // test
+
     useEffect(() => {
-        let dataObject = {};
+        let dataObject: any = {};
 
         // We start off by getting a bunch of data from the gitlab repository
-        getRepositoryInformation(17480)
+        getRepositoryInformation(globalSearchTerm)
             .then((data) => {
                 dataObject = data;
             })
@@ -28,11 +38,5 @@ export const StateProvider = (props) => {
             });
     }, []);
 
-    return (
-        <ContextState.Provider
-            value={[/* commits, setCommits, stars, setStars, repositoryName, setRepositoryName */ repositoryInformation, setRepositoryInformation]}
-        >
-            {props.children}
-        </ContextState.Provider>
-    );
+    return <ContextState.Provider value={[repositoryInformation, setRepositoryInformation]}>{props.children}</ContextState.Provider>;
 };

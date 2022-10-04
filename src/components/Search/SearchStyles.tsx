@@ -1,5 +1,30 @@
 import styled from "styled-components";
 
+export const Test = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: fit-content;
+    //    padding: 10px 10px 10px 0px;
+    background-color: white;
+    position: absolute;
+    top: 52px;
+    z-index: 999;
+    row-gap: 8px;
+    border: 1px solid rgba(60, 60, 60, 0.1);
+    border-top: none;
+
+    div {
+        background-color: white;
+        // border-bottom: 1px solid rgba(60, 60, 60, 0.2);
+        padding: 10px;
+        &:hover {
+            background-color: rgb(250, 250, 250);
+            cursor: pointer;
+        }
+    }
+`;
+
 export const SearchOuter = styled.div`
     position: relative;
     display: grid;
@@ -13,6 +38,10 @@ export const SearchOuter = styled.div`
             padding: 0 0.5rem;
         }
     }
+
+    .searchBox {
+    }
+
     .form-control {
         background: var(--color-white);
         display: grid;
