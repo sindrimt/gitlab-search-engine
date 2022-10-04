@@ -9,12 +9,14 @@ ReactFC.fcRoot(FusionCharts, Chart, FusionTheme);
 
 const AnotherList = (): any => {
     const [repositoryInformation, setRepositoryInformation] = useContext(ContextState);
+    const [filteredCommitList, setFilteredCommitList] = useState([]);
 
     let dataSource: any = {};
+    let repoUlr = `<a href = ${repositoryInformation?.http_url_to_repo}>Link to repo</a>`;
 
     dataSource["chart"] = {
-        caption: "Overview of branches",
-        subcaption: '<a href="https://gitlab.stud.idi.ntnu.no/it2810-h22/Team-40/prosjekt-2/">Link to repository</a>',
+        caption: "Overview of main branch",
+        subcaption: repoUlr,
         numbersuffix: " commits",
         legendposition: "bottom",
         usedataplotcolorforlabels: "1",
@@ -67,9 +69,9 @@ const AnotherList = (): any => {
     return (
         <>
             <button onClick={() => filterCommitData()}>Commits last week</button>
-            {filteredCommitList && (
+            {filteredCommitList.length !== 0 && (
                 <h3>
-                    There has been <span style={{ color: "blueviolet" }}>{filteredCommitList.length}</span> commits this last week
+                    There has been <span style={{ color: "blueviolet" }}>{filteredCommitList.length}</span> commits this week
                 </h3>
             )}
             <ReactFC {...chartConfigs} />
