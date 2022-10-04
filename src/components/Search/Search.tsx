@@ -21,8 +21,10 @@ const Search = () => {
         getRepositoryInformation(searchTermFromInput)
             .then((data) => {
                 setRepositoryInformation(data);
+                sessionStorage.setItem("shortKey", JSON.stringify(searchTermFromInput));
                 localStorage.setItem("key", JSON.stringify(searchTermFromInput));
             })
+
             .catch((err) => {
                 //TODO Handle error better here with frontend feedback
                 console.log(err);
@@ -39,6 +41,7 @@ const Search = () => {
                     <div className="form-control">
                         <MdSearch />
                         <input
+                            id="input"
                             type="text"
                             placeholder="Enter Gitlab Repository ID"
                             onChange={(e: any) => setSearchTermFromInput(e.target.value ? e.target.value : 17480)}
@@ -46,16 +49,9 @@ const Search = () => {
                             onFocus={() => setShowPrevSearches(true)}
                             onBlur={() => setShowPrevSearches(false)}
                         />
-                        {showPrevSearches && (
-                            <Test>
-                                <div>hei på deg</div>
-                                <div>tdt42069 project</div>
-                                <div>sdfsdf</div>
-                                <div>sdfsdf</div>
-                            </Test>
-                        )}
-
-                        <button type="submit">search</button>
+                        <button id="button" type="submit">
+                            search
+                        </button>
                     </div>
                 </form>
                 <h3 id="repoInfo">{repositoryInformation?.other?.name_with_namespace}</h3>

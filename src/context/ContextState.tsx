@@ -20,7 +20,7 @@ export const StateProvider = (props: any) => {
         let dataObject: any = {};
 
         // We start off by getting a bunch of data from the gitlab repository
-        getRepositoryInformation(globalSearchTerm)
+        getRepositoryInformation(JSON.parse(localStorage.getItem("key" || "{}")))
             .then((data) => {
                 dataObject = data;
             })
