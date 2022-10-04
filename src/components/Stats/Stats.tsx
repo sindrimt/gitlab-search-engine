@@ -8,7 +8,7 @@ const Stats = () => {
     return (
         <section className="section">
             <StatsOuter className="section-center">
-                <CommitChart />
+                {/* <CommitChart /> */}
                 <AnotherChart />
             </StatsOuter>
         </section>
