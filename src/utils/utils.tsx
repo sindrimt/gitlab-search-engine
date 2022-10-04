@@ -20,6 +20,8 @@ export const getRepositoryInformation = (searchTerm: number) => {
             .then((data) => (repositoryObj["issues"] = data))
             .then(() => {
                 resolve(repositoryObj);
+                /* console.log("New Object =======");
+                console.log(repositoryObj); */
             })
             .catch(() => {
                 reject("Error with api call");
@@ -27,12 +29,12 @@ export const getRepositoryInformation = (searchTerm: number) => {
     });
 };
 
-export const proccessCommitDataFromApi = (data: any) => {
+export const proccessCommitDataFromApi = (data: any, groupId: number) => {
     const members: any = [];
 
     return new Promise((resolve, reject) => {
         // Get information from the Gitlab api for how many members there are in the project
-        fetch("https://gitlab.stud.idi.ntnu.no/api/v4/projects/17480/members/all?access_token=glpat-FF2rY-Gy-Pjzwqsh4467")
+        fetch(`https://gitlab.stud.idi.ntnu.no/api/v4/projects/${groupId}/members/all?access_token=glpat-FF2rY-Gy-Pjzwqsh4467`)
             .then((response) => response.json())
             // Then add them to an array and store them as an object with name and commitCount
             .then((data) =>
@@ -53,6 +55,8 @@ export const proccessCommitDataFromApi = (data: any) => {
 
                 // At last, resolve the members array with updated commitCount :)
                 resolve(members);
+                console.log("New Object =======");
+                console.log(members);
             })
             .catch((err) => {
                 reject(err);

@@ -14,20 +14,20 @@ export const StateProvider = (props: any) => {
 
     const [globalSearchTerm, setGlobalSearchTerm] = useState(17480);
 
-    // test
+    const [dataSource, setDataSource] = useState({});
 
     useEffect(() => {
         let dataObject: any = {};
 
         // We start off by getting a bunch of data from the gitlab repository
-        getRepositoryInformation(JSON.parse(localStorage.getItem("key" || "{}")))
+        getRepositoryInformation(JSON.parse(localStorage.getItem("key") || ""))
             .then((data) => {
                 dataObject = data;
             })
 
             // Then count how many commits each member has
             .then(() => {
-                proccessCommitDataFromApi(dataObject)
+                proccessCommitDataFromApi(dataObject, JSON.parse(localStorage.getItem("key") || ""))
                     .then((result) => {
                         dataObject["members"] = result;
                         setRepositoryInformation(dataObject);
@@ -38,5 +38,11 @@ export const StateProvider = (props: any) => {
             });
     }, []);
 
-    return <ContextState.Provider value={[repositoryInformation, setRepositoryInformation]}>{props.children}</ContextState.Provider>;
+    return (
+        <ContextState.Provider
+            value={[repositoryInformation, setRepositoryInformation, globalSearchTerm, setGlobalSearchTerm, dataSource, setDataSource]}
+        >
+            {props.children}
+        </ContextState.Provider>
+    );
 };
