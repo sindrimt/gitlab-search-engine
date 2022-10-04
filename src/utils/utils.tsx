@@ -2,19 +2,19 @@
     searchTerm?: string | number;
 } */
 
-export const getRepositoryInformation = (searchTerm: number) => {
+export const getRepositoryInformation = (searchTerm: number | string, accessToken: string) => {
     let repositoryObj: any = {};
     return new Promise((resolve, reject) => {
-        fetch(`https://gitlab.stud.idi.ntnu.no/api/v4/projects/${searchTerm}/repository/commits?access_token=glpat-FF2rY-Gy-Pjzwqsh4467`)
+        fetch(`https://gitlab.stud.idi.ntnu.no/api/v4/projects/${searchTerm}/repository/commits?access_token=${accessToken}`)
             .then((response) => response.json())
             .then((data) => (repositoryObj["commits"] = data))
             .then(() => {
-                return fetch(`https://gitlab.stud.idi.ntnu.no/api/v4/projects/${searchTerm}/?access_token=glpat-FF2rY-Gy-Pjzwqsh4467`);
+                return fetch(`https://gitlab.stud.idi.ntnu.no/api/v4/projects/${searchTerm}/?access_token=${accessToken}`);
             })
             .then((response) => response.json())
             .then((data) => (repositoryObj["other"] = data))
             .then(() => {
-                return fetch(`https://gitlab.stud.idi.ntnu.no/api/v4/projects/${searchTerm}/issues?access_token=glpat-FF2rY-Gy-Pjzwqsh4467`);
+                return fetch(`https://gitlab.stud.idi.ntnu.no/api/v4/projects/${searchTerm}/issues?access_token=${accessToken}`);
             })
             .then((response) => response.json())
             .then((data) => (repositoryObj["issues"] = data))
@@ -29,12 +29,12 @@ export const getRepositoryInformation = (searchTerm: number) => {
     });
 };
 
-export const proccessCommitDataFromApi = (data: any, groupId: number) => {
+export const proccessCommitDataFromApi = (data: any, groupId: number, accessToken: string) => {
     const members: any = [];
 
     return new Promise((resolve, reject) => {
         // Get information from the Gitlab api for how many members there are in the project
-        fetch(`https://gitlab.stud.idi.ntnu.no/api/v4/projects/${groupId}/members/all?access_token=glpat-FF2rY-Gy-Pjzwqsh4467`)
+        fetch(`https://gitlab.stud.idi.ntnu.no/api/v4/projects/${groupId}/members/all?access_token=${accessToken}`)
             .then((response) => response.json())
             // Then add them to an array and store them as an object with name and commitCount
             .then((data) =>

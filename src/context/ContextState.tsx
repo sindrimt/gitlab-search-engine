@@ -15,19 +15,23 @@ export const StateProvider = (props: any) => {
     const [globalSearchTerm, setGlobalSearchTerm] = useState(17480);
 
     const [dataSource, setDataSource] = useState({});
+    const [accessToken, setAccessToken] = useState(sessionStorage.getItem("accessToken") || "glpat-FF2rY-Gy-Pjzwqsh4467");
+    const [update, setUpdate] = useState(false);
+
+    const previousSearches: any = sessionStorage.getItem("shortKey")?.split(",") || [];
 
     useEffect(() => {
         let dataObject: any = {};
 
         // We start off by getting a bunch of data from the gitlab repository
-        getRepositoryInformation(JSON.parse(localStorage.getItem("key") || ""))
+        getRepositoryInformation(JSON.parse(localStorage.getItem("key") || ""), accessToken)
             .then((data) => {
                 dataObject = data;
             })
 
             // Then count how many commits each member has
             .then(() => {
-                proccessCommitDataFromApi(dataObject, JSON.parse(localStorage.getItem("key") || ""))
+                proccessCommitDataFromApi(dataObject, JSON.parse(localStorage.getItem("key") || ""), accessToken)
                     .then((result) => {
                         dataObject["members"] = result;
                         setRepositoryInformation(dataObject);
@@ -40,7 +44,19 @@ export const StateProvider = (props: any) => {
 
     return (
         <ContextState.Provider
-            value={[repositoryInformation, setRepositoryInformation, globalSearchTerm, setGlobalSearchTerm, dataSource, setDataSource]}
+            value={[
+                repositoryInformation,
+                setRepositoryInformation,
+                globalSearchTerm,
+                setGlobalSearchTerm,
+                dataSource,
+                setDataSource,
+                previousSearches,
+                accessToken,
+                setAccessToken,
+                update,
+                setUpdate,
+            ]}
         >
             {props.children}
         </ContextState.Provider>

@@ -28,10 +28,12 @@ export const Test = styled.div`
 export const SearchOuter = styled.div`
     position: relative;
     display: grid;
+    justify-content: center;
+    width: 40%;
     gap: 1rem 1.75rem;
 
     @media (min-width: 768px) {
-        grid-template-columns: 1fr max-content;
+        grid-template-columns: 1fr;
         align-items: center;
 
         h3 {
@@ -39,17 +41,17 @@ export const SearchOuter = styled.div`
         }
     }
 
-    .searchBox {
-    }
-
     .form-control {
         background: var(--color-white);
         display: grid;
         align-items: center;
-        grid-template-columns: auto 1fr auto;
+        justify-content: center;
         column-gap: 0.5rem;
-        border-radius: 5px;
+        row-gap: 0.5rem;
+        grid-template-columns: 1fr;
         padding: 0.5rem;
+        width: 100%;
+        border-radius: 5px;
 
         input {
             border-color: transparent;
@@ -57,6 +59,7 @@ export const SearchOuter = styled.div`
             letter-spacing: var(--spacing);
             color: var(--color-grey3);
             padding: 0.25rem 0.5rem;
+            text-align: center;
 
             &:focus {
                 border: none;
@@ -64,20 +67,16 @@ export const SearchOuter = styled.div`
             }
         }
 
-        input::placeholder {
-            color: var(--color-grey3);
-            text-transform: capitalize;
-            letter-spacing: var(--spacing);
-        }
-
         button {
             border-radius: 5px;
+            width: 50%;
             border-color: transparent;
             padding: 0.25rem 0.5rem;
             text-transform: capitalize;
             letter-spacing: var(--spacing);
             background: var(--color-p5);
             color: var(--color-white);
+            transform: translate(50%, 0%);
             transition: var(--transition);
 
             &:hover {
@@ -89,6 +88,12 @@ export const SearchOuter = styled.div`
 
         svg {
             color: var(--color-grey5);
+        }
+
+        input::placeholder {
+            color: var(--color-grey3);
+            text-transform: capitalize;
+            letter-spacing: var(--spacing);
         }
 
         input,
