@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StatsOuter = styled.div`
-    display: flex;
+    display: grid;
     justify-items: center;
     gap: 2rem;
 
