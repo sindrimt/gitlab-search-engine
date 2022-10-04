@@ -14,6 +14,8 @@ export const StateProvider = (props: any) => {
 
     const [globalSearchTerm, setGlobalSearchTerm] = useState(17480);
 
+    // test
+
     useEffect(() => {
         let dataObject: any = {};
 
