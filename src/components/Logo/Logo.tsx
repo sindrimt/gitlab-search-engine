@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import searchImg from "../../Assets/Images/search.png";
+import searchImg from "../../Assets/search.png";
 
 import { LogoContainer } from "./LogoStyles";
 

@@ -2,7 +2,7 @@
 
 ## Introduksjon
 
-GitLab Search Engine er en single page application (SPA), der brukeren kan søke opp repositories fra NTNU IDI sin Gitlab, og kunne få presentert grunnleggende . Dette gjennomføres ved å søke opp repoets unike ID og access token.
+GitLab Search Engine er en single page application (SPA), der brukeren kan søke opp repositories fra NTNU IDI sin Gitlab, og kunne få presentert litt data. Dette gjennomføres ved å skrive inn repoets unike ID og access token.
 
 Vi har valgt å plukke ut antall commits, issues, forks og stars. Disse presenteres under søkebaren. Standard git-repo for dette prosjektet er vårt eget. Det når man ved Det gir oss mulighet til å hente ut standard info, samt egne info som krever access tokens. Midt på siden har vi et pie-chart som viser prosentvis fordeling på antall commits.
 
