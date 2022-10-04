@@ -1,63 +1,52 @@
+import React, { useContext } from "react";
 import ReactFC from "react-fusioncharts";
 import FusionCharts from "fusioncharts";
-import Column2D from "fusioncharts/fusioncharts.charts";
+import Chart from "fusioncharts/fusioncharts.charts";
 import FusionTheme from "fusioncharts/themes/fusioncharts.theme.fusion";
+import { ContextState } from "../../context/ContextState";
 
-ReactFC.fcRoot(FusionCharts, Column2D, FusionTheme);
+ReactFC.fcRoot(FusionCharts, Chart, FusionTheme);
 
-const chartData = [
-    {
-        label: "Venezuela",
-        value: "290",
-    },
-    {
-        label: "Saudi",
-        value: "260",
-    },
-    {
-        label: "Canada",
-        value: "180",
-    },
-    {
-        label: "Iran",
-        value: "140",
-    },
-    {
-        label: "Russia",
-        value: "115",
-    },
-    {
-        label: "UAE",
-        value: "100",
-    },
-    {
-        label: "US",
-        value: "30",
-    },
-    {
-        label: "China",
-        value: "30",
-    },
-];
-const CommitChart = () => {
+const AnotherChart = (): any => {
+    const [repositoryInformation, setRepositoryInformation] = useContext(ContextState);
+
+    let dataSource: any = {};
+    let link = `<a href="${repositoryInformation?.other?.http_url_to_repo}">link to repo</a>`;
+
+    dataSource["chart"] = {
+        caption: "Overview of commits",
+        subcaption: link,
+        numbersuffix: " commits",
+        legendposition: "bottom",
+        usedataplotcolorforlabels: "1",
+        theme: "fusion",
+        enablemultislicing: "0",
+    };
+
+    dataSource["data"] = [];
+
+    const filteredMembersWithCommits = repositoryInformation?.members?.filter((member: any) => {
+        return member?.commitCount > 0;
+    });
+
+    //console.log(filteredMembersWithCommits);
+
+    filteredMembersWithCommits?.map((member: any) => {
+        dataSource.data.push({
+            label: member?.name,
+            value: member?.commitCount,
+        });
+    });
+
     const chartConfigs = {
-        type: "column2d",
+        type: "pie3d",
         width: "100%",
         height: "400",
         dataFormat: "json",
-        dataSource: {
-            chart: {
-                caption: "Countries With Most Oil Reserves [2017-18]",
-                subCaption: "In MMbbl = One Million barrels",
-                xAxisName: "Country",
-                yAxisName: "Reserves (MMbbl)",
-                numberSuffix: "K",
-                theme: "fusion",
-            },
-            data: chartData,
-        },
+
+        dataSource,
     };
     return <ReactFC {...chartConfigs} />;
 };
 
-export default CommitChart;
+export default AnotherChart;
