@@ -7,13 +7,13 @@ import { ContextState } from "../../context/ContextState";
 
 ReactFC.fcRoot(FusionCharts, Chart, FusionTheme);
 
-const AnotherChart = (): any => {
+const AnotherList = (): any => {
     const [repositoryInformation, setRepositoryInformation] = useContext(ContextState);
 
     let dataSource: any = {};
 
     dataSource["chart"] = {
-        caption: "Overview of commits on main",
+        caption: "Overview of branches",
         subcaption: '<a href="https://gitlab.stud.idi.ntnu.no/it2810-h22/Team-40/prosjekt-2/">Link to repository</a>',
         numbersuffix: " commits",
         legendposition: "bottom",
@@ -52,4 +52,4 @@ const AnotherChart = (): any => {
     return <ReactFC {...chartConfigs} />;
 };
 
-export default AnotherChart;
+export default AnotherList;
