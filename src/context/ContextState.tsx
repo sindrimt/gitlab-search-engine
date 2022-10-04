@@ -12,11 +12,13 @@ export const ContextState = createContext<AppContextInterface | null | any>(null
 export const StateProvider = (props: any) => {
     const [repositoryInformation, setRepositoryInformation] = useState({});
 
+    const [globalSearchTerm, setGlobalSearchTerm] = useState(17480);
+
     useEffect(() => {
         let dataObject: any = {};
 
         // We start off by getting a bunch of data from the gitlab repository
-        getRepositoryInformation(17480)
+        getRepositoryInformation(globalSearchTerm)
             .then((data) => {
                 dataObject = data;
             })
