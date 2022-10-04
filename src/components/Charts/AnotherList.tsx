@@ -58,8 +58,7 @@ const AnotherList = (): any => {
         // Filters out commits that are only older than a week
         const filtered = repositoryInformation.commits.filter((commit: any) => {
             let date = new Date(commit.created_at);
-            return Date.now() - date.getTime() > MS;
-            //return commit.author_name === "Ragnar Dreier";
+            return Date.now() - date.getTime() < MS;
         });
         setFilteredCommitList(filtered);
 
