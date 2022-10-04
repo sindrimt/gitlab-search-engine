@@ -91,8 +91,6 @@ const Search = () => {
                             className="access-token"
                             placeholder="Enter Gitlab Access Token"
                             onChange={(e: any) => setAccessTokenFromInput(e.target.value ? e.target.value : "glpat-FF2rY-Gy-Pjzwqsh4467")}
-                            onFocus={() => setShowPrevSearches(true)}
-                            onBlur={() => setShowPrevSearches(false)}
                         />
 
                         {showPrevSearches && (
