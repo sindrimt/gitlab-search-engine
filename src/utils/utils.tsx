@@ -19,6 +19,11 @@ export const getRepositoryInformation = (searchTerm: number | string, accessToke
             .then((response) => response.json())
             .then((data) => (repositoryObj["issues"] = data))
             .then(() => {
+                return fetch(`https://gitlab.stud.idi.ntnu.no/api/v4/projects/${searchTerm}/branches?access_token=glpat-FF2rY-Gy-Pjzwqsh4467`);
+            })
+            .then((response) => response.json())
+            .then((data) => (repositoryObj["branches"] = data))
+            .then(() => {
                 resolve(repositoryObj);
                 /* console.log("New Object =======");
                 console.log(repositoryObj); */

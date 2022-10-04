@@ -7,26 +7,14 @@ import { ContextState } from "../../context/ContextState";
 
 ReactFC.fcRoot(FusionCharts, Chart, FusionTheme);
 
-const AnotherChart = (): any => {
-    const [filteredCommitList, setFilteredCommitList] = useState([]);
-    const [
-        repositoryInformation,
-        setRepositoryInformation,
-        globalSearchTerm,
-        setGlobalSearchTerm,
-        previousSearches,
-        accessToken,
-        setAccessToken,
-        update,
-        setUpdate,
-    ] = useContext(ContextState);
+const AnotherList = (): any => {
+    const [repositoryInformation, setRepositoryInformation] = useContext(ContextState);
 
     let dataSource: any = {};
-    let link = `<a href="${repositoryInformation?.other?.http_url_to_repo}">link to repo</a>`;
 
     dataSource["chart"] = {
-        caption: "Overview of commits",
-        subcaption: link,
+        caption: "Overview of branches",
+        subcaption: '<a href="https://gitlab.stud.idi.ntnu.no/it2810-h22/Team-40/prosjekt-2/">Link to repository</a>',
         numbersuffix: " commits",
         legendposition: "bottom",
         usedataplotcolorforlabels: "1",
@@ -40,7 +28,7 @@ const AnotherChart = (): any => {
         return member?.commitCount > 0;
     });
 
-    //console.log(filteredMembersWithCommits);
+    console.log(filteredMembersWithCommits);
 
     filteredMembersWithCommits?.map((member: any) => {
         dataSource.data.push({
@@ -48,6 +36,10 @@ const AnotherChart = (): any => {
             value: member?.commitCount,
         });
     });
+
+    console.log("COMMIT DSTA");
+    console.log(dataSource);
+    //resolve(commitData);
 
     const chartConfigs = {
         type: "pie3d",
@@ -85,4 +77,4 @@ const AnotherChart = (): any => {
     );
 };
 
-export default AnotherChart;
+export default AnotherList;
