@@ -11,10 +11,11 @@ const AnotherChart = (): any => {
     const [repositoryInformation, setRepositoryInformation] = useContext(ContextState);
 
     let dataSource: any = {};
+    let link = `<a href="${repositoryInformation?.other?.http_url_to_repo}">link to repo</a>`;
 
     dataSource["chart"] = {
         caption: "Overview of commits",
-        subcaption: '<a href="https://gitlab.stud.idi.ntnu.no/it2810-h22/Team-40/prosjekt-2/">Link to repository</a>',
+        subcaption: link,
         numbersuffix: " commits",
         legendposition: "bottom",
         usedataplotcolorforlabels: "1",
