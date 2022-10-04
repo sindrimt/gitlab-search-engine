@@ -1,21 +1,30 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import { MdSearch } from "react-icons/md";
 import { SearchOuter, Test } from "./SearchStyles";
 
 import { ContextState } from "../../context/ContextState";
 import { getRepositoryInformation, proccessCommitDataFromApi } from "../../utils/utils";
+import { isNamedExportBindings } from "typescript";
 
 const Search = () => {
-    const [repositoryInformation, setRepositoryInformation, globalSearchTerm, setGlobalSearchTerm, dataSource, setDataSource] =
+    const [repositoryInformation, setRepositoryInformation, globalSearchTerm, setGlobalSearchTerm, dataSource, setDataSource, previousSearches] =
         useContext(ContextState);
 
     const [searchTermFromInput, setSearchTermFromInput] = useState(17480);
     const [backup, setBackup] = useState(repositoryInformation);
     const [showPrevSearches, setShowPrevSearches] = useState(false);
 
+    const inputRef = useRef(null);
+
     const handleSubmit = (e: any) => {
         e.preventDefault();
         let newData: any = {};
+
+        console.log("epic");
+        console.log(sessionStorage.getItem("shortKey") || "");
+
+        previousSearches.push(searchTermFromInput);
+        console.log(previousSearches);
 
         // we set the state to be empty, so that the loading animation shows until the data has arrived
         setRepositoryInformation({});
@@ -24,9 +33,11 @@ const Search = () => {
             .then((data) => {
                 newData = data;
                 setRepositoryInformation(data);
-                console.log("search data");
-                console.log(data);
-                sessionStorage.setItem("shortKey", JSON.stringify(searchTermFromInput));
+
+                sessionStorage.setItem("shortKey", previousSearches);
+
+                //console.log(JSON.parse(sessionStorage.getItem("shortKey") || ""));
+
                 localStorage.setItem("key", JSON.stringify(searchTermFromInput));
             })
             .then(() => {
@@ -60,6 +71,7 @@ const Search = () => {
                     <div className="form-control">
                         <MdSearch />
                         <input
+                            ref={inputRef}
                             id="input"
                             type="text"
                             placeholder="Enter Gitlab Repository ID"
@@ -68,6 +80,18 @@ const Search = () => {
                             onFocus={() => setShowPrevSearches(true)}
                             onBlur={() => setShowPrevSearches(false)}
                         />
+                        {showPrevSearches && (
+                            <Test>
+                                {previousSearches?.map((searchTerm: any, index: number) => {
+                                    return (
+                                        <div key={index} onClick={() => console.log("dfsgn")}>
+                                            {searchTerm}
+                                        </div>
+                                    );
+                                })}
+                            </Test>
+                        )}
+
                         <button id="button" type="submit">
                             search
                         </button>

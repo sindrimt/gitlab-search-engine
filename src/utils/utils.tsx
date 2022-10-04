@@ -2,7 +2,7 @@
     searchTerm?: string | number;
 } */
 
-export const getRepositoryInformation = (searchTerm: number) => {
+export const getRepositoryInformation = (searchTerm: number | string) => {
     let repositoryObj: any = {};
     return new Promise((resolve, reject) => {
         fetch(`https://gitlab.stud.idi.ntnu.no/api/v4/projects/${searchTerm}/repository/commits?access_token=glpat-FF2rY-Gy-Pjzwqsh4467`)

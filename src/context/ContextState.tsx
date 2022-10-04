@@ -16,6 +16,10 @@ export const StateProvider = (props: any) => {
 
     const [dataSource, setDataSource] = useState({});
 
+    let test = sessionStorage.getItem("shortKey")?.split(",");
+
+    const previousSearches: any = sessionStorage.getItem("shortKey")?.split(",") || [];
+
     useEffect(() => {
         let dataObject: any = {};
 
@@ -40,7 +44,15 @@ export const StateProvider = (props: any) => {
 
     return (
         <ContextState.Provider
-            value={[repositoryInformation, setRepositoryInformation, globalSearchTerm, setGlobalSearchTerm, dataSource, setDataSource]}
+            value={[
+                repositoryInformation,
+                setRepositoryInformation,
+                globalSearchTerm,
+                setGlobalSearchTerm,
+                dataSource,
+                setDataSource,
+                previousSearches,
+            ]}
         >
             {props.children}
         </ContextState.Provider>
