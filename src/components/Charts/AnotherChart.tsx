@@ -28,7 +28,7 @@ const AnotherChart = (): any => {
         return member?.commitCount > 0;
     });
 
-    console.log(filteredMembersWithCommits);
+    //console.log(filteredMembersWithCommits);
 
     filteredMembersWithCommits?.map((member: any) => {
         dataSource.data.push({
@@ -36,10 +36,6 @@ const AnotherChart = (): any => {
             value: member?.commitCount,
         });
     });
-
-    console.log("COMMIT DSTA");
-    console.log(dataSource);
-    //resolve(commitData);
 
     const chartConfigs = {
         type: "pie3d",

@@ -6,7 +6,8 @@ import { ContextState } from "../../context/ContextState";
 import { getRepositoryInformation, proccessCommitDataFromApi } from "../../utils/utils";
 
 const Search = () => {
-    const [repositoryInformation, setRepositoryInformation] = useContext(ContextState);
+    const [repositoryInformation, setRepositoryInformation, globalSearchTerm, setGlobalSearchTerm, dataSource, setDataSource] =
+        useContext(ContextState);
 
     const [searchTermFromInput, setSearchTermFromInput] = useState(17480);
     const [backup, setBackup] = useState(repositoryInformation);
@@ -14,15 +15,33 @@ const Search = () => {
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
+        let newData: any = {};
 
         // we set the state to be empty, so that the loading animation shows until the data has arrived
         setRepositoryInformation({});
 
         getRepositoryInformation(searchTermFromInput)
             .then((data) => {
+                newData = data;
                 setRepositoryInformation(data);
+                console.log("search data");
+                console.log(data);
                 sessionStorage.setItem("shortKey", JSON.stringify(searchTermFromInput));
                 localStorage.setItem("key", JSON.stringify(searchTermFromInput));
+            })
+            .then(() => {
+                // api data get
+                proccessCommitDataFromApi(newData, JSON.parse(localStorage.getItem("key") || ""))
+                    .then((result) => {
+                        newData["members"] = result;
+                        setRepositoryInformation(newData);
+                    })
+                    .then(() => {
+                        console.log("new data");
+                        console.log(newData);
+                        setDataSource(newData);
+                        // console.log(repositoryInformation);
+                    });
             })
 
             .catch((err) => {
