@@ -16,6 +16,7 @@ export const StateProvider = (props: any) => {
 
     const [dataSource, setDataSource] = useState({});
     const [accessToken, setAccessToken] = useState(sessionStorage.getItem("accessToken") || "glpat-FF2rY-Gy-Pjzwqsh4467");
+    const [update, setUpdate] = useState(false);
 
     const previousSearches: any = sessionStorage.getItem("shortKey")?.split(",") || [];
 
@@ -53,6 +54,8 @@ export const StateProvider = (props: any) => {
                 previousSearches,
                 accessToken,
                 setAccessToken,
+                update,
+                setUpdate,
             ]}
         >
             {props.children}

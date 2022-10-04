@@ -16,6 +16,8 @@ const Search = () => {
         previousSearches,
         accessToken,
         setAccessToken,
+        update,
+        setUpdate,
     ] = useContext(ContextState);
 
     const [searchTermFromInput, setSearchTermFromInput] = useState(17480);
@@ -70,6 +72,10 @@ const Search = () => {
                 return;
             });
     };
+
+    useEffect(() => {
+        setDataSource("e");
+    }, [update]);
 
     return (
         <section className="section">

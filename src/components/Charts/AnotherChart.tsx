@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import ReactFC from "react-fusioncharts";
 import FusionCharts from "fusioncharts";
 import Chart from "fusioncharts/fusioncharts.charts";
@@ -8,7 +8,18 @@ import { ContextState } from "../../context/ContextState";
 ReactFC.fcRoot(FusionCharts, Chart, FusionTheme);
 
 const AnotherChart = (): any => {
-    const [repositoryInformation, setRepositoryInformation] = useContext(ContextState);
+    const [filteredCommitList, setFilteredCommitList] = useState([]);
+    const [
+        repositoryInformation,
+        setRepositoryInformation,
+        globalSearchTerm,
+        setGlobalSearchTerm,
+        previousSearches,
+        accessToken,
+        setAccessToken,
+        update,
+        setUpdate,
+    ] = useContext(ContextState);
 
     let dataSource: any = {};
     let link = `<a href="${repositoryInformation?.other?.http_url_to_repo}">link to repo</a>`;
@@ -46,7 +57,32 @@ const AnotherChart = (): any => {
 
         dataSource,
     };
-    return <ReactFC {...chartConfigs} />;
+
+    const MS = 604800000;
+
+    const filterCommitData = () => {
+        // Filters out commits that are only older than a week
+        const filtered = repositoryInformation.commits.filter((commit: any) => {
+            let date = new Date(commit.created_at);
+            return Date.now() - date.getTime() > MS;
+            //return commit.author_name === "Ragnar Dreier";
+        });
+        setFilteredCommitList(filtered);
+
+        return <h1>hhhh</h1>;
+    };
+
+    return (
+        <>
+            <button onClick={() => filterCommitData()}>Commits last week</button>
+            {filteredCommitList && (
+                <h3>
+                    There has been <span style={{ color: "blueviolet" }}>{filteredCommitList.length}</span> commits this last week
+                </h3>
+            )}
+            <ReactFC {...chartConfigs} />
+        </>
+    );
 };
 
 export default AnotherChart;
